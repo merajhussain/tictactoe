@@ -443,7 +443,7 @@ public class TicTacToe {
 
 
 
-      System.out.println("Slot to update:"+ slotToUpdate);
+      //System.out.println("Slot to update:"+ slotToUpdate);
 
         updateBoard(computerChoice,slotToUpdate);
 
@@ -480,6 +480,7 @@ public class TicTacToe {
         char userChoice = '_';
         int lastUserRow = -1;
         int lastUserColumn = -1;
+        boolean firstTurn = true;
         System.out.println("*************Let's play tic tac toe------------");
          boardSetup();
 
@@ -489,6 +490,7 @@ public class TicTacToe {
              System.out.println("Enter ur choice(X/O):");
              userChoice = sc.nextLine().charAt(0);
          }
+
 
          if(userChoice == 'x' || userChoice =='X')
          {
@@ -526,6 +528,20 @@ public class TicTacToe {
                  gameOver = true;
                  break;
              }
+
+             if(firstTurn)
+             {
+                 System.out.println("Do you want computer to begin playing?(yes/no)");
+
+                 String playerBegins = sc.nextLine();
+                 if(playerBegins.equalsIgnoreCase("yes"))
+                 {
+                     userTurn = false;
+                 }
+
+                 firstTurn = false;
+             }
+
 
 
              gameOver = false;
