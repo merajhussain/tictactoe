@@ -287,15 +287,9 @@ public class TicTacToe {
             slotToUpdate = diagonal + maxUserSlots;
         }
 
-
-
         //System.out.println("Slot to update:"+ slotToUpdate);
 
         updateBoard(computerChoice, slotToUpdate);
-
-
-
-
     }
 
     public static boolean checkAllSlotsFilled() {
