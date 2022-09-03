@@ -309,7 +309,14 @@ public class TicTacToe {
 
     public static boolean isValidRowColumn(int r,int c)
     {
-        return ((r>=0 && r<3)&&(c>=0&&c<3));
+        if( (r<0 || r>2) || (c<0 || c>2) ) return false;
+
+        if( board[r][c] !='_'){
+               System.out.println("Please Choose a slot that is not yet filled by anyone ");
+               return false;
+        }
+
+        return true ;
     }
 
     public static void main(String args[]) {
@@ -343,6 +350,8 @@ public class TicTacToe {
             if (gameOver == false && checkAllSlotsFilled()) {
                 gameOver = true;
                 System.out.println("#########################Its a TIE#############################################");
+                System.out.println("Final board:");
+                printBoard();
                 continue;
             }
             char winner = checkWin();
@@ -352,11 +361,15 @@ public class TicTacToe {
             if (winner == userChoice) {
                 printBoard();
                 System.out.println("******************You win*********************");
+                System.out.println("Final board:");
+                printBoard();
                 gameOver = true;
                 break;
             } else if (winner == computerChoice) {
                 printBoard();
                 System.out.println("******************Computer  wins*********************");
+                System.out.println("Final board:");
+                printBoard();
                 gameOver = true;
                 break;
             }
