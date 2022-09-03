@@ -307,6 +307,11 @@ public class TicTacToe {
         return (choice == 'x' || choice == 'X' || choice == 'O' || choice == 'o');
     }
 
+    public static boolean isValidRowColumn(int r,int c)
+    {
+        return ((r>=0 && r<3)&&(c>=0&&c<3));
+    }
+
     public static void main(String args[]) {
 
         boolean gameOver = false;
@@ -375,9 +380,17 @@ public class TicTacToe {
 
             if (userTurn) {
                 printBoard();
-                System.out.println("your turn, choose a row{0,1,2} and column {0,1,2}");
-                int row = sc.nextInt();
-                int column = sc.nextInt();
+
+                int row =-1;
+                int column = -1;
+                while(!isValidRowColumn(row,column))
+                {
+                    System.out.println("your turn, choose a valid row{0,1,2} and valid column {0,1,2}");
+                     row = sc.nextInt();
+                     column = sc.nextInt();
+                }
+
+
                 userTurn = false;
                 updateBoard(userChoice, row, column);
                 lastUserRow = row;
