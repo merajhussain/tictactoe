@@ -501,7 +501,9 @@ public class TicTacToe {
         int lastUserRow = -1;
         int lastUserColumn = -1;
         boolean firstTurn = true;
-        System.out.println("*************Let's play tic tac toe------------");
+        System.out.println("*************Let's play tic tac toe*******************\n" +
+                           "******************************************************\n" +
+                           "******************************************************");
         boardSetup();
 
         Scanner sc = new Scanner(System.in);
@@ -542,7 +544,7 @@ public class TicTacToe {
                 break;
             } else if (winner == computerChoice) {
                 printBoard();
-                System.out.println("******************Computer  wins*********************");
+                System.out.println("####################Computer  wins########################");
                 System.out.println("Final board:");
                 printBoard();
                 gameOver = true;
