@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class TicTacToe {
 
     public static char[][] board;
+    public static int wr;
+    public static int wc;
     public static char checkWin() {
         //rows
         char choice = '_';
@@ -249,9 +251,180 @@ public class TicTacToe {
         }
 
     }
+
+    public static boolean checkAndUpdateWinningSlot(char choice)
+    {
+        //row
+        int count=0;
+        for(int i=0;i<board[0].length;i++)
+        {
+
+            if(board[0][i] == choice)
+            {
+                count++;
+            }
+        }
+        if(count == 2){
+
+        }
+
+
+        return false;
+    }
+
+    public static void getWinningSlotRow(char choice,int r)
+    {
+        int count=0;
+        for(int i=0;i<3;i++)
+        {
+            if(board[r][i] == '_') {
+                if(count == 2){
+                    wr = 0;
+                    wc =i;
+                }
+
+            }
+            else
+            {
+                if(board[r][i]==choice)
+                {
+                    count++;
+                }
+
+            }
+        }
+
+    }
+
+    public static void getWinningSlotColumn(char choice,int c)
+    {
+        int count=0;
+        for(int i=0;i<3;i++)
+        {
+            if(board[i][c] == '_') {
+                if(count == 2){
+                    wr = i;
+                    wc =c;
+                }
+
+            }
+            else
+            {
+                if(board[i][c]==choice)
+                {
+                    count++;
+                }
+
+            }
+        }
+
+    }
+
+    public static void getWinnsingSlotRightDiagonal(char choice){
+        if(board[2][0]==board[1][1]){
+            if(board[1][1]==choice){
+                if(board[0][2]=='_'){
+                    wr =0;
+                    wc=2;
+                    return;
+                }
+            }
+        }
+
+        if(board[2][0]==board[0][2]){
+            if(board[2][0]==choice){
+                if(board[1][1]=='_'){
+                    wr =1;
+                    wc=1;
+                    return;
+                }
+            }
+        }
+        if(board[1][1]==board[0][2]){
+            if(board[1][1]==choice){
+                if(board[2][0]=='_'){
+                    wr =2;
+                    wc=0;
+                    return;
+                }
+            }
+        }
+
+
+    }
+
+
+    public static void getWinnigSlotLeftDiagonal(char choice){
+        int count=0;
+        for(int i=0;i<3;i++){
+            if(board[i][i]=='_'){
+                if(count == 2){
+                    wr=wc=i;
+                    return;
+                }
+            }
+            else{
+                if(choice == board[i][i]){
+                    count++;
+                }
+            }
+        }
+    }
+
+
+    public static void getWinningSlot(char choice){
+        //row
+        getWinningSlotRow(choice,0);
+        if(wr != -1 && wc != -1) return;
+
+        wr=wc=-1;
+        getWinningSlotRow(choice,1);
+        if(wr != -1 && wc != -1) return;
+
+        wr=wc=-1;
+        getWinningSlotRow(choice,2);
+        if(wr != -1 && wc != -1) return;
+
+        //columns
+
+        wr=wc=-1;
+        getWinningSlotColumn(choice,0);
+        if(wr != -1 && wc != -1) return;
+
+        wr=wc=-1;
+        getWinningSlotColumn(choice,1);
+        if(wr != -1 && wc != -1) return;
+
+        wr=wc=-1;
+        getWinningSlotColumn(choice,2);
+        if(wr != -1 && wc != -1) return;
+
+        //diagonal
+        wr=wc=-1;
+        getWinnigSlotLeftDiagonal(choice);
+        if(wr != -1 && wc != -1) return;
+
+        wr=wc=-1;
+        getWinnigSlotLeftDiagonal(choice);
+        if(wr != -1 && wc != -1) return;
+
+        wr=wc=-1;
+        getWinnsingSlotRightDiagonal(choice);
+
+
+    }
+
+
     public static void computerTurn(char userChoice, char computerChoice, int lur, int luc) {
 
         System.out.println("Computer is playing ! Please wait for computers turn to finish!!!");
+
+        wr=wc=-1;
+        getWinningSlot(computerChoice);
+        if(wr !=-1 && wc!=-1){
+            updateBoard(computerChoice,wr,wc);
+            return;
+        }
 
         String maxUserSlots = "";
         int firstRow = checkUserSlotsRow(userChoice, 0);
@@ -340,9 +513,11 @@ public class TicTacToe {
 
 
         if (userChoice == 'x' || userChoice == 'X') {
+            userChoice ='X';
             computerChoice = 'O';
         } else {
             computerChoice = 'X';
+            userChoice = 'O';
         }
 
 
@@ -385,11 +560,7 @@ public class TicTacToe {
                 firstTurn = false;
             }
 
-
-
             gameOver = false;
-
-
 
             if (userTurn) {
                 printBoard();
